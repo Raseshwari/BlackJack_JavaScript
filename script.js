@@ -89,16 +89,68 @@ function shuffleCardDeck(cardDeck)
   }
 }
 
+function getCardNumericValue(card)
+{
+  switch(card.value){
+    case 'Ace':
+      return 1;
+    case 'Two':
+      return 2;
+    case 'Three':
+      return 3;
+    case 'Four':
+      return 4;
+    case 'Five':
+      return 5;
+    case 'Six':
+      return 6;
+    case 'Seven':
+      return 7;
+    case 'Eight':
+      return 8;
+    case 'Nine':
+      return 9;
+    default:
+      return 10;
+  }
+}
+
+
+function getScore(cardArray)
+{
+  let cardScore = 0;
+  let hasAce = false;
+  for(let i = 0; i < cardArray.length; i++)
+  {
+    let card = cardArray[i];
+    cardScore += getCardNumericValue(card);
+    if(card.value === 'Ace')
+    {
+      hasAce = true;
+    }
+  }
+  
+  if(hasAce && cardScore +10 <=21)
+  {
+    return cardScore+10;
+  }
+  return cardScore;
+}
+
+function updateScores()
+{
+  dealerScore = getScore(dealerCards);
+  playerScore = getScore(playerCards);
+}
 
 function showStatus()
 {
   if(!gameStarted)
   {
     textArea.innerText = "Welcome to BlackJack!!"
-  }else
-  {
-    textArea.innerText = "Game Started.."
+    return;
   }
+  
   
   let dealerCardString = '';
   for(let i = 0; i<dealerCards.length; i++)
@@ -132,8 +184,8 @@ function showStatus()
     }
     
     newGameButton.style.display = "inline";
-    hitButton.style.display = "inline";
-    stayButton.style.display = "inline";
+    hitButton.style.display = "none";
+    stayButton.style.display = "none";
   }
 }
 
