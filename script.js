@@ -48,6 +48,63 @@ newGameButton.addEventListener('click',function(){
   showStatus();
 });
 
+hitButton.addEventListener('click', function(){
+  playerCards.push(getNextCard());
+  checkForEndOfGame();
+  showStatus();
+});
+
+stayButton.addEventListener('click', function(){
+  gameOver = true;
+  checkForEndOfGame();
+  showStatus();
+});
+
+function checkForEndOfGame()
+{
+  updateScores();
+  
+  if(gameOver)
+  {
+    //let dealer take cards
+    while(dealerScore < playerScore 
+    && playerScore <=21
+    && dealerScore <=21)
+    {
+      dealerCards.push(getNextCard());
+      updateScores();
+    }
+  }
+  
+  if(playerScore > 21)
+  {
+    playerWon = false;
+    gameOver = true;
+  }else if(dealerScore > 21)
+  {
+    playerWon = true;
+    gameOver = true;
+  }else if(gameOver)
+  {
+    if(playerScore > dealerScore)
+    {
+      playerWon = true;
+    }
+    else
+    {
+      playerWon = false;
+    }
+    
+    if(playerScore === dealerScore)
+    {
+      textArea.innerText = "Its a tie!"
+    }
+    
+    // newGameButton.style.display = 'inline';
+    // hitButton.style.display = 'none';
+    // stayButton.style.display = 'none';
+  }
+}
 
 function createCardDeck()
 {
@@ -188,6 +245,8 @@ function showStatus()
     stayButton.style.display = "none";
   }
 }
+
+
 
 
 
