@@ -9,14 +9,51 @@ let values = ['Ace', 'King', 'Queen', 'Jack',
   'Five', 'Four', 'Three', 'Two'
   ];
 
-let cardDeck = [];
 
-for(let sIndex = 0; sIndex<suits.length; sIndex++)
+
+function createCardDeck()
 {
-  for(vIndex = 0; vIndex<values.length; vIndex++)
+  let cardDeck = [];
+  for(let sIndex = 0; sIndex<suits.length; sIndex++)
   {
-    cardDeck.push(values[vIndex]+" of "+suits[sIndex]);
+    for(vIndex = 0; vIndex<values.length; vIndex++)
+    {
+      let card = {
+        
+        suit: suits[sIndex],
+        value: values[vIndex]
+      };
+      
+      cardDeck.push(card);
+    }
   }
+  return cardDeck;
 }
 
-console.log(cardDeck.splice(0,52))
+function getCardAsString(card)
+{
+  return card.value + " of " + card.suit;
+}
+
+function getNextCard()
+{
+  return cardDeck.shift();
+}
+
+let cardDeck = createCardDeck();
+
+let playerCards = [getNextCard(), getNextCard()]
+
+console.log("Welcome to BlackJack");
+
+console.log("You're dealt: ")
+console.log(" "+getCardAsString(playerCards[0]));
+console.log(" "+getCardAsString(playerCards[1]));
+
+
+
+
+
+
+
+
